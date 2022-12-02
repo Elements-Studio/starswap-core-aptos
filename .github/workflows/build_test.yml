@@ -1,0 +1,31 @@
+name: Build and Test
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  aptos-build-and-test:
+    name: Aptos build and test
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - name: checkout-move
+        uses: actions/checkout@v3
+
+      - name: download and install aptos CI
+        run: |
+          bash scripts/dev_setup.sh -b -t -p
+
+      - name: aptos swap core build and test
+        run: |
+          source "$HOME/.profile"
+          bash scripts/build.sh core
+
+      - name: aptos swap farming build and test
+        run: |
+          source "$HOME/.profile"
+          bash scripts/build.sh farming
+
+      - name: check aptos farming core changed files
+        run: bash scripts/changed_files.sh

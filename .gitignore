@@ -1,0 +1,14 @@
+.DS_Store
+build/
+storage/
+release/
+.idea
+.vscode/
+.vs
+data/
+
+.aptos
+output*
+devnet
+testnet
+
