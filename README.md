@@ -3,14 +3,14 @@
 Starswap-aptos is a general purpose DEX on Aptos. 
 
 
-## Move Package Manager
+## Move Compile tool
 
 ### Compile Contract
 ```commandline
 aptos move compile
 ```
 
-### Run Functional Tests
+### Run Transactional Tests
 ```commandline
 aptos move transactional-test --root-path <ROOT_PATH>
 ```
