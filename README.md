@@ -14,8 +14,8 @@ aptos move compile
 ```commandline
 aptos move transactional-test --root-path <ROOT_PATH>
 ```
-
-### Run Unit Tests
+ 
+### Run Unit Tests 
 
 ```commandline
 aptos move test
