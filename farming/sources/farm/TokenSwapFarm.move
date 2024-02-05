@@ -395,6 +395,15 @@ module SwapAdmin::TokenSwapFarm {
         }
     }
 
+    /// Query stake amount weight from user all staked
+    public fun query_stake_weight<X, Y>(account: address): u128 {
+        if (exists<FarmPoolStake<X, Y>>(account)) {
+            YieldFarming::query_stake_weight<PoolTypeFarmPool, coin::Coin<LiquidityToken<X, Y>>>(account)
+        } else {
+            0
+        }
+    }
+
     /// Query release per second
     public fun query_release_per_second<X, Y>(): u128 acquires FarmPoolInfo {
         let farm_pool_info = borrow_global<FarmPoolInfo<X, Y>>(STAR::token_address());
