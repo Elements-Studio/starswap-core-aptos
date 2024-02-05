@@ -819,6 +819,29 @@ module SwapAdmin::YieldFarmingV3 {
         stake_extend.asset_amount
     }
 
+    /// Get the total pledge weight under the specified Token type pool by account staking
+    /// @return total stake weight by user
+    public fun query_stake_weight<PoolType: store, AssetT: store>(account: address): u128 acquires StakeList {
+        let stake_list = borrow_global_mut<StakeList<PoolType, AssetT>>(account);
+        let len = vector::length(&stake_list.items);
+        if (len <= 0) {
+            return 0
+        };
+
+        let i = 0;
+        let account_total_stake_weight: u128 = 0;
+        loop {
+            if (i >= len) {
+                break
+            };
+            let stake_item = vector::borrow(&stake_list.items, i);
+            account_total_stake_weight = account_total_stake_weight + stake_item.asset_weight;
+            i = i + 1;
+        };
+        account_total_stake_weight
+    }
+
+
     /// Query stake id list from user
     public fun query_stake_list<PoolType: store, AssetT: store>(user_addr: address): vector<u64> acquires StakeList {
         let stake_list = borrow_global_mut<StakeList<PoolType, AssetT>>(user_addr);
